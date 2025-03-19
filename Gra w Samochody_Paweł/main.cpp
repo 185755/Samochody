@@ -31,31 +31,31 @@ long time_start = clock();
 multicast_net *multi_reciv;          // wsk do obiektu zajmujacego sie odbiorem komunikatow
 multicast_net *multi_send;           //   -||-  wysylaniem komunikatow
 
-HANDLE threadReciv;                  // uchwyt wï¿½tku odbioru komunikatï¿½w
-HWND main_window;                    // uchwyt do gï¿½ï¿½wnego okna programu 
-CRITICAL_SECTION m_cs;               // do synchronizacji wï¿½tkï¿½w
+HANDLE threadReciv;                  // uchwyt w¹tku odbioru komunikatów
+HWND main_window;                    // uchwyt do g³ównego okna programu 
+CRITICAL_SECTION m_cs;               // do synchronizacji w¹tków
 
 bool if_SHIFT_pressed = false;
-bool if_ID_visible = true;           // czy rysowac nr ID przy kaï¿½dym obiekcie
-bool if_mouse_control = false;       // sterowanie za pomocï¿½ klawisza myszki
-int mouse_cursor_x = 0, mouse_cursor_y = 0;     // poï¿½oï¿½enie kursora myszy
-bool swapRequestPending = false; // otrzymaliï¿½my proï¿½bï¿½ o zamianï¿½ i czekamy na decyzjï¿½ uï¿½ytkownika
-int swapRequesterID = -1; // ID uï¿½ytkownika, ktï¿½ry poprosiï¿½ nas o zamianï¿½
+bool if_ID_visible = true;           // czy rysowac nr ID przy ka¿dym obiekcie
+bool if_mouse_control = false;       // sterowanie za pomoc¹ klawisza myszki
+int mouse_cursor_x = 0, mouse_cursor_y = 0;     // po³o¿enie kursora myszy
+bool swapRequestPending = false; // otrzymaliœmy proœbê o zamianê i czekamy na decyzjê u¿ytkownika
+int swapRequesterID = -1; // ID u¿ytkownika, który poprosi³ nas o zamianê
 
 
 extern ViewParams viewpar;           // ustawienia widoku zdefiniowane w grafice
 
 long duration_of_day = 800;         // czas trwania dnia w [s]
 
-struct Frame                                      // gï¿½ï¿½wna struktura sï¿½uï¿½ï¿½ca do przesyï¿½ania informacji
+struct Frame                                      // g³ówna struktura s³u¿¹ca do przesy³ania informacji
 {	
-	int iID;                                      // identyfikator obiektu, ktï¿½rego 
-	int type;                                     // typ ramki: informacja o stateie, informacja o zamkniï¿½ciu, komunikat tekstowy, ... 
-	ObjectState state;                            // poï¿½oï¿½enie, prï¿½dkoï¿½ï¿½: ï¿½rodka masy + kï¿½towe, ...
+	int iID;                                      // identyfikator obiektu, którego 
+	int type;                                     // typ ramki: informacja o stateie, informacja o zamkniêciu, komunikat tekstowy, ... 
+	ObjectState state;                            // po³o¿enie, prêdkoœæ: œrodka masy + k¹towe, ...
 
-	long sending_time;                            // tzw. znacznik czasu potrzebny np. do obliczenia opï¿½nienia
+	long sending_time;                            // tzw. znacznik czasu potrzebny np. do obliczenia opóŸnienia
 	int iID_receiver;        
-	// nr ID odbiorcy wiadomoï¿½ci, jeï¿½li skierowana jest tylko do niego
+	// nr ID odbiorcy wiadomoœci, jeœli skierowana jest tylko do niego
 	#define FRAME_STATE         1
 	#define FRAME_CLOSURE       2
 	#define FRAME_SWAP_REQUEST  3
@@ -65,28 +65,28 @@ struct Frame                                      // gï¿½ï¿½wna struktura sï¿½uï
 
 
 //******************************************
-// Funkcja obsï¿½ugi wï¿½tku odbioru komunikatï¿½w 
-// UWAGA!  Odbierane sï¿½ teï¿½ komunikaty z wï¿½asnej aplikacji by porï¿½wnaï¿½ obraz ekstrapolowany do rzeczywistego.
+// Funkcja obs³ugi w¹tku odbioru komunikatów 
+// UWAGA!  Odbierane s¹ te¿ komunikaty z w³asnej aplikacji by porównaæ obraz ekstrapolowany do rzeczywistego.
 DWORD WINAPI ReceiveThreadFun(void *ptr)
 {
-	multicast_net *pmt_net = (multicast_net*)ptr;  // wskaï¿½nik do obiektu klasy multicast_net
+	multicast_net *pmt_net = (multicast_net*)ptr;  // wskaŸnik do obiektu klasy multicast_net
 	Frame frame;
 
 	while (1)
 	{
-		int frame_size = pmt_net->reciv((char*)&frame, sizeof(Frame));   // oczekiwanie na nadejï¿½cie ramki 
+		int frame_size = pmt_net->reciv((char*)&frame, sizeof(Frame));   // oczekiwanie na nadejœcie ramki 
 		ObjectState state = frame.state;
 
 		//fprintf(f, "odebrano stan iID = %d, ID dla mojego obiektu = %d\n", frame.iID, my_car->iID);
 
 		// Lock the Critical section
-		EnterCriticalSection(&m_cs);               // wejï¿½cie na ï¿½cieï¿½kï¿½ krytycznï¿½ - by inne wï¿½tki (np. gï¿½ï¿½wny) nie wspï¿½dzieliï¿½ 
+		EnterCriticalSection(&m_cs);               // wejœcie na œcie¿kê krytyczn¹ - by inne w¹tki (np. g³ówny) nie wspó³dzieli³ 
 	                                               // tablicy other_cars
-		if (frame.iID != my_car->iID)          // jeï¿½li to nie mï¿½j wï¿½asny obiekt
+		if (frame.iID != my_car->iID)          // jeœli to nie mój w³asny obiekt
 		{
 			
 			if ((other_cars.size() == 0) || (other_cars[frame.iID] == NULL))        // nie ma jeszcze takiego obiektu w tablicy -> trzeba go
-				// stworzyï¿½
+				// stworzyæ
 			{
 				MovableObject *ob = new MovableObject();
 				ob->iID = frame.iID;
@@ -103,60 +103,61 @@ DWORD WINAPI ReceiveThreadFun(void *ptr)
 
 			if (receiverID == my_car->iID)
 			{
-				// Zapamiï¿½taj, ï¿½e mamy oczekujï¿½ce ï¿½ï¿½danie
+				// Zapamiêtaj, ¿e mamy oczekuj¹ce ¿¹danie
 				swapRequestPending = true;
 				swapRequesterID = senderID;
 
-				printf("[INFO] Otrzymano SWAP_REQUEST od ID=%d. Czy zaakceptowaï¿½? (Y/N)\n", senderID);
+				printf("[INFO] Otrzymano SWAP_REQUEST od ID=%d. Czy zaakceptowaæ? (Y/N)\n", senderID);
 			}
+
 		}
 
 		if (frame.type == FRAME_SWAP_REJECT)
+		{
+			int senderID = frame.iID;
+			int receiverID = frame.iID_receiver;
+			if (receiverID == my_car->iID)
 			{
-				int senderID = frame.iID;
-				int receiverID = frame.iID_receiver;
-				if (receiverID == my_car->iID)
-				{
-					printf("[INFO] Uï¿½ytkownik odrzuciï¿½ SWAP_REQUEST.\n");
-				}
-
+				printf("[INFO] U¿ytkownik odrzuci³ SWAP_REQUEST.\n");
 			}
-			else if (frame.type == FRAME_SWAP_CONFIRM)
+
+		}
+		else if (frame.type == FRAME_SWAP_CONFIRM)
+		{
+			int senderID = frame.iID;
+			int receiverID = frame.iID_receiver;
+
+			// Tê ramkê widzi u¿ytkownik A, który wczeœniej wys³a³ SWAP_REQUEST do B=senderID
+			if (receiverID == my_car->iID)
 			{
-				int senderID = frame.iID;
-				int receiverID = frame.iID_receiver;
+				printf("[INFO] Otrzymano SWAP_CONFIRM od ID=%d. Wykonuje zamianê...\n", senderID);
 
-				// Tï¿½ ramkï¿½ widzi uï¿½ytkownik A, ktï¿½ry wczeï¿½niej wysï¿½aï¿½ SWAP_REQUEST do B=senderID
-				if (receiverID == my_car->iID)
+				// ZnajdŸ obiekt partnera
+				EnterCriticalSection(&m_cs);
+				if (other_cars.count(senderID))
 				{
-					printf("[INFO] Otrzymano SWAP_CONFIRM od ID=%d. Wykonuje zamianï¿½...\n", senderID);
+					MovableObject* partnerCar = other_cars[senderID];
 
-					// Znajdï¿½ obiekt partnera
-					EnterCriticalSection(&m_cs);
-					if (other_cars.count(senderID))
-					{
-						MovableObject* partnerCar = other_cars[senderID];
+					// Zamiana stanu
+					ObjectState temp = my_car->state;
+					my_car->state = partnerCar->state;
+					partnerCar->state = temp;
 
-						// Zamiana stanu
-						ObjectState temp = my_car->state;
-						my_car->state = partnerCar->state;
-						partnerCar->state = temp;
-
-						printf("[INFO] Zakonczono zamiane. Moje ID=%d, partner ID=%d.\n", my_car->iID, senderID);
-					}
-					LeaveCriticalSection(&m_cs);
-
+					printf("[INFO] Zakonczono zamiane. Moje ID=%d, partner ID=%d.\n", my_car->iID, senderID);
 				}
+				LeaveCriticalSection(&m_cs);
+
 			}
 		}
 		//Release the Critical section
-		LeaveCriticalSection(&m_cs);               // wyjï¿½cie ze ï¿½cieï¿½ki krytycznej
-	} 
-
+		LeaveCriticalSection(&m_cs);               // wyjœcie ze œcie¿ki krytycznej
+	}  // while(1)
+	return 1;
+}
 
 // *****************************************************************
-// ****    Wszystko co trzeba zrobiï¿½ podczas uruchamiania aplikacji
-// ****    poza grafikï¿½   
+// ****    Wszystko co trzeba zrobiæ podczas uruchamiania aplikacji
+// ****    poza grafik¹   
 	void InteractionInitialisation()
 {
 	DWORD dwThreadId;
@@ -167,9 +168,9 @@ DWORD WINAPI ReceiveThreadFun(void *ptr)
 
 	// obiekty sieciowe typu multicast (z podaniem adresu WZR oraz numeru portu)
 	multi_reciv = new multicast_net("224.12.12.10", 10001);      // obiekt do odbioru ramek sieciowych
-	multi_send = new multicast_net("224.12.12.10", 10001);       // obiekt do wysyï¿½ania ramek
+	multi_send = new multicast_net("224.12.12.10", 10001);       // obiekt do wysy³ania ramek
 
-	// uruchomienie wï¿½tku obsï¿½ugujï¿½cego odbiï¿½r komunikatï¿½w:
+	// uruchomienie w¹tku obs³uguj¹cego odbiór komunikatów:
 	threadReciv = CreateThread(
 		NULL,                        // no security attributes
 		0,                           // use default stack size
@@ -184,14 +185,14 @@ DWORD WINAPI ReceiveThreadFun(void *ptr)
 
 
 // *****************************************************************
-// ****    Wszystko co trzeba zrobiï¿½ w kaï¿½dym cyklu dziaï¿½ania 
-// ****    aplikacji poza grafikï¿½ 
+// ****    Wszystko co trzeba zrobiæ w ka¿dym cyklu dzia³ania 
+// ****    aplikacji poza grafik¹ 
 void VirtualWorldCycle()
 {
 	number_of_cyc++;
 
-	if (number_of_cyc % 50 == 0)          // jeï¿½li licznik cykli przekroczyï¿½ pewnï¿½ wartoï¿½ï¿½, to
-	{                              // naleï¿½y na nowo obliczyï¿½ ï¿½redni czas cyklu avg_cycle_time
+	if (number_of_cyc % 50 == 0)          // jeœli licznik cykli przekroczy³ pewn¹ wartoœæ, to
+	{                              // nale¿y na nowo obliczyæ œredni czas cyklu avg_cycle_time
 		char text[256];
 		long prev_time = time_of_cycle;
 		time_of_cycle = clock();
@@ -200,22 +201,22 @@ void VirtualWorldCycle()
 
 		sprintf(text, "WWC-lab 2024/25 temat 1 (%0.0f fps  %0.2fms) ", fFps, 1000.0 / fFps);
 
-		SetWindowText(main_window, text); // wyï¿½wietlenie aktualnej iloï¿½ci klatek/s w pasku okna			
+		SetWindowText(main_window, text); // wyœwietlenie aktualnej iloœci klatek/s w pasku okna			
 	}
 
-	my_car->Simulation(avg_cycle_time);                    // symulacja wï¿½asnego obiektu
+	my_car->Simulation(avg_cycle_time);                    // symulacja w³asnego obiektu
 
 	Frame frame;
-	frame.state = my_car->State();               // state wï¿½asnego obiektu 
+	frame.state = my_car->State();               // state w³asnego obiektu 
 	frame.iID = my_car->iID;
 
 
-	multi_send->send((char*)&frame, sizeof(Frame));  // wysï¿½anie komunikatu do pozostaï¿½ych aplikacji
+	multi_send->send((char*)&frame, sizeof(Frame));  // wys³anie komunikatu do pozosta³ych aplikacji
 }
 
 // *****************************************************************
-// ****    Wszystko co trzeba zrobiï¿½ podczas zamykania aplikacji
-// ****    poza grafikï¿½ 
+// ****    Wszystko co trzeba zrobiæ podczas zamykania aplikacji
+// ****    poza grafik¹ 
 void EndOfInteraction()
 {
 	fprintf(f, "Koniec interakcji\n");
@@ -240,15 +241,15 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	InitializeCriticalSection(&m_cs);
 
 	MSG message;		  //innymi slowy "komunikat"
-	WNDCLASS main_class; //klasa gï¿½ï¿½wnego okna aplikacji
+	WNDCLASS main_class; //klasa g³ównego okna aplikacji
 
 	static char class_name[] = "Klasa_Podstawowa";
 
-	//Definiujemy klase gï¿½ï¿½wnego okna aplikacji
+	//Definiujemy klase g³ównego okna aplikacji
 	//Okreslamy tu wlasciwosci okna, szczegoly wygladu oraz
 	//adres funkcji przetwarzajacej komunikaty
 	main_class.style = CS_HREDRAW | CS_VREDRAW;
-	main_class.lpfnWndProc = WndProc; //adres funkcji realizujï¿½cej przetwarzanie meldunkï¿½w 
+	main_class.lpfnWndProc = WndProc; //adres funkcji realizuj¹cej przetwarzanie meldunków 
 	main_class.cbClsExtra = 0;
 	main_class.cbWndExtra = 0;
 	main_class.hInstance = hInstance; //identyfikator procesu przekazany przez MS Windows podczas uruchamiania programu
@@ -258,7 +259,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	main_class.lpszMenuName = "Menu";
 	main_class.lpszClassName = class_name;
 
-	//teraz rejestrujemy klasï¿½ okna gï¿½ï¿½wnego
+	//teraz rejestrujemy klasê okna g³ównego
 	RegisterClass(&main_class);
 
 	main_window = CreateWindow(class_name, "WWC-lab 2024/25 temat 1", WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
@@ -271,8 +272,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	//odswiezamy zawartosc okna
 	UpdateWindow(main_window);
 
-	// pobranie komunikatu z kolejki jeï¿½li funkcja PeekMessage zwraca wartoï¿½ï¿½ innï¿½ niï¿½ FALSE,
-	// w przeciwnym wypadku symulacja wirtualnego ï¿½wiata wraz z wizualizacjï¿½
+	// pobranie komunikatu z kolejki jeœli funkcja PeekMessage zwraca wartoœæ inn¹ ni¿ FALSE,
+	// w przeciwnym wypadku symulacja wirtualnego œwiata wraz z wizualizacj¹
 	ZeroMemory(&message, sizeof(message));
 	while (message.message != WM_QUIT)
 	{
@@ -283,7 +284,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		}
 		else
 		{
-			VirtualWorldCycle();    // Cykl wirtualnego ï¿½wiata
+			VirtualWorldCycle();    // Cykl wirtualnego œwiata
 			InvalidateRect(main_window, NULL, FALSE);
 		}
 	}
@@ -292,13 +293,13 @@ int WINAPI WinMain(HINSTANCE hInstance,
 }
 
 /********************************************************************
-FUNKCJA OKNA realizujaca przetwarzanie meldunkï¿½w kierowanych do okna aplikacji*/
+FUNKCJA OKNA realizujaca przetwarzanie meldunków kierowanych do okna aplikacji*/
 LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPARAM lParam)
 {
 
 	switch (message_code)
 	{
-	case WM_CREATE:  //message wysyï¿½any w momencie tworzenia okna
+	case WM_CREATE:  //message wysy³any w momencie tworzenia okna
 	{
 
 		g_context = GetDC(main_window);
@@ -347,7 +348,7 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 		return 0;
 	}
 
-	case WM_DESTROY: //obowiï¿½zkowa obsï¿½uga meldunku o zamkniï¿½ciu okna
+	case WM_DESTROY: //obowi¹zkowa obs³uga meldunku o zamkniêciu okna
 
 		EndOfInteraction();
 		EndOfGraphics();
@@ -374,7 +375,7 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 		int x = LOWORD(lParam);
 		int y = HIWORD(lParam);
 		if (if_mouse_control)
-			my_car->F = 30.0;        // siï¿½a pchajï¿½ca do przodu
+			my_car->F = 30.0;        // si³a pchaj¹ca do przodu
 		break;
 	}
 	case WM_RBUTTONDOWN: //reakcja na prawy przycisk myszki
@@ -382,10 +383,10 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 		int x = LOWORD(lParam);
 		int y = HIWORD(lParam);
 		if (if_mouse_control)
-			my_car->F = -5.0;        // siï¿½a pchajï¿½ca do tylu
+			my_car->F = -5.0;        // si³a pchaj¹ca do tylu
 		break;
 	}
-	case WM_MBUTTONDOWN: //reakcja na ï¿½rodkowy przycisk myszki : uaktywnienie/dezaktywacja sterwania myszkowego
+	case WM_MBUTTONDOWN: //reakcja na œrodkowy przycisk myszki : uaktywnienie/dezaktywacja sterwania myszkowego
 	{
 		if_mouse_control = 1 - if_mouse_control;
 		if (if_mouse_control) my_car->if_keep_steer_wheel = true;
@@ -398,13 +399,13 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 	case WM_LBUTTONUP: //reakcja na puszczenie lewego przycisku myszki
 	{
 		if (if_mouse_control)
-			my_car->F = 0.0;        // siï¿½a pchajï¿½ca do przodu
+			my_car->F = 0.0;        // si³a pchaj¹ca do przodu
 		break;
 	}
 	case WM_RBUTTONUP: //reakcja na puszczenie lewy przycisk myszki
 	{
 		if (if_mouse_control)
-			my_car->F = 0.0;        // siï¿½a pchajï¿½ca do przodu
+			my_car->F = 0.0;        // si³a pchaj¹ca do przodu
 		break;
 	}
 	case WM_MOUSEMOVE:
@@ -433,12 +434,12 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 		}
 		case VK_SPACE:
 		{
-			my_car->breaking_factor = 1.0;       // stopieï¿½ hamowania (reszta zaleï¿½y od siï¿½y docisku i wsp. tarcia)
-			break;                       // 1.0 to maksymalny stopieï¿½ (np. zablokowanie kï¿½)
+			my_car->breaking_factor = 1.0;       // stopieñ hamowania (reszta zale¿y od si³y docisku i wsp. tarcia)
+			break;                       // 1.0 to maksymalny stopieñ (np. zablokowanie kó³)
 		}
 		case VK_UP:
 		{
-			my_car->F = 100.0;        // siï¿½a pchajï¿½ca do przodu
+			my_car->F = 100.0;        // si³a pchaj¹ca do przodu
 			break;
 		}
 		case VK_DOWN:
@@ -483,14 +484,14 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 			else viewpar.cam_distance = 0;
 			break;
 		}
-		case 'S':   // przybliï¿½enie widoku
+		case 'S':   // przybli¿enie widoku
 		{
 			//cam_pos = cam_pos + cam_direct*0.3; 
 			if (viewpar.cam_distance > 0) viewpar.cam_distance *= 1.2;
 			else viewpar.cam_distance = 0.5;
 			break;
 		}
-		case 'Q':   // widok z gï¿½ry
+		case 'Q':   // widok z góry
 		{
 			if (viewpar.tracking) break;
 			viewpar.top_view = 1 - viewpar.top_view;
@@ -510,12 +511,12 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 			}
 			break;
 		}
-		case 'E':   // obrï¿½t kamery ku gï¿½rze (wzglï¿½dem lokalnej osi z)
+		case 'E':   // obrót kamery ku górze (wzglêdem lokalnej osi z)
 		{
 			viewpar.cam_angle += PI * 5 / 180;
 			break;
 		}
-		case 'D':   // obrï¿½t kamery ku doï¿½owi (wzglï¿½dem lokalnej osi z)
+		case 'D':   // obrót kamery ku do³owi (wzglêdem lokalnej osi z)
 		{
 			viewpar.cam_angle -= PI * 5 / 180;
 			break;
@@ -555,7 +556,7 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 			}
 			break;
 		}
-		case 'Y': // Akceptujemy ï¿½ï¿½danie
+		case 'Y': // Akceptujemy ¿¹danie
 		{
 			if (swapRequestPending)
 			{
@@ -575,7 +576,7 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 			}
 			break;
 		}
-		case 'N': 				// Odrzucamy ï¿½ï¿½danie
+		case 'N': 				// Odrzucamy ¿¹danie
 		{
 			if (swapRequestPending)
 			{
@@ -595,7 +596,7 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 			}
 			break;
 		}
-		case 'A':   // wï¿½ï¿½czanie, wyï¿½ï¿½czanie trybu ï¿½ledzenia obiektu
+		case 'A':   // w³¹czanie, wy³¹czanie trybu œledzenia obiektu
 		{
 			viewpar.tracking = 1 - viewpar.tracking;
 			if (viewpar.tracking)
@@ -611,7 +612,7 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 			}
 			break;
 		}
-		case 'Z':   // zoom - zmniejszenie kï¿½ta widzenia
+		case 'Z':   // zoom - zmniejszenie k¹ta widzenia
 		{
 			viewpar.zoom /= 1.1;
 			RECT rc;
@@ -619,7 +620,7 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 			WindowResize(rc.right - rc.left, rc.bottom - rc.top);
 			break;
 		}
-		case 'X':   // zoom - zwiï¿½kszenie kï¿½ta widzenia
+		case 'X':   // zoom - zwiêkszenie k¹ta widzenia
 		{
 			viewpar.zoom *= 1.1;
 			RECT rc;
@@ -709,7 +710,7 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 		break;
 	}
 
-	default: //statedardowa obsï¿½uga pozostaï¿½ych meldunkï¿½w
+	default: //statedardowa obs³uga pozosta³ych meldunków
 		return DefWindowProc(main_window, message_code, wParam, lParam);
 	}
 

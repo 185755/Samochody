@@ -1,1 +1,3 @@
-E:\Portfolio\Gra w Samochody\Debug\wzr_vis.exe
+E:\Portfolio\Samochody oryginalne\Debug\wzr_vis.exe
+E:\Portfolio\Samochody\Samochody oryginalne\Debug\wzr_vis.exe
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\Debug\wzr_vis.exe

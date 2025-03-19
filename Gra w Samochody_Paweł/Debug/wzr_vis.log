@@ -1,22 +1,21 @@
 ﻿cl : wiersz polecenia warning D9035: Opcja "Gm" jest przestarzała i będzie usunięta w przyszłych wydaniach
   main.cpp
-E:\Portfolio\Gra w Samochody\main.cpp(19,11): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Gra w Samochody\main.cpp(199,39): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-E:\Portfolio\Gra w Samochody\main.cpp(201,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Gra w Samochody\main.cpp(419,50): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-E:\Portfolio\Gra w Samochody\main.cpp(482,63): warning C4305: "/=": obcięcie z "double" do "float"
-E:\Portfolio\Gra w Samochody\main.cpp(489,61): warning C4305: "*=": obcięcie z "double" do "float"
-E:\Portfolio\Gra w Samochody\main.cpp(515,37): warning C4305: "+=": obcięcie z "double" do "float"
-E:\Portfolio\Gra w Samochody\main.cpp(520,37): warning C4305: "-=": obcięcie z "double" do "float"
-E:\Portfolio\Gra w Samochody\main.cpp(616,23): warning C4305: "/=": obcięcie z "double" do "float"
-E:\Portfolio\Gra w Samochody\main.cpp(624,23): warning C4305: "*=": obcięcie z "double" do "float"
-E:\Portfolio\Gra w Samochody\main.cpp(635,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Gra w Samochody\main.cpp(636,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Gra w Samochody\main.cpp(637,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Gra w Samochody\main.cpp(641,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Gra w Samochody\main.cpp(642,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Gra w Samochody\main.cpp(643,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Gra w Samochody\main.cpp(649,6): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Gra w Samochody\main.cpp(717): warning C4715: "WndProc”: niewszystkie ścieżki kodu zwracają wartość
-main.obj : warning LNK4075: zignorowano opcję „/EDITANDCONTINUE” z powodu określenia opcji „/SAFESEH”
-  wzr_vis.vcxproj -> E:\Portfolio\Gra w Samochody\Debug\wzr_vis.exe
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(19,11): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(200,39): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(202,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(420,50): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(483,63): warning C4305: "/=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(490,61): warning C4305: "*=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(516,37): warning C4305: "+=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(521,37): warning C4305: "-=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(617,23): warning C4305: "/=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(625,23): warning C4305: "*=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(636,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(637,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(638,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(642,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(643,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(644,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(650,6): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Gra w Samochody_Paweł\main.cpp(718): warning C4715: "WndProc”: niewszystkie ścieżki kodu zwracają wartość
+  wzr_vis.vcxproj -> E:\Portfolio\Samochody\Gra w Samochody_Paweł\Debug\wzr_vis.exe

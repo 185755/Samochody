@@ -1,4 +1,5 @@
 height_map env: number_of_rows = 235, number_of_columns = 231
-my_car->iID = 653
+my_car->iID = 722
 my_car->iID = 41
+Zarejestrowano nowy pojazd: ID = 693
 Koniec interakcji

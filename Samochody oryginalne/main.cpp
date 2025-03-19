@@ -115,23 +115,44 @@ void ConfirmSwap(int targetID)
 
 void HandleSwap(Frame frame)
 {
+	EnterCriticalSection(&m_cs);
+
 	if (frame.swap_request == 1)  // ¿¹danie zamiany
 	{
-		// SprawdŸ, czy u¿ytkownik chce zamieniæ siê pojazdem
-		if (MessageBox(main_window, "Czy chcesz zamieniæ siê pojazdem?", "Zamiana pojazdów", MB_YESNO) == IDYES)
+		if (other_cars.find(frame.iID) == other_cars.end() || other_cars[frame.iID] == nullptr)
 		{
-			ConfirmSwap(frame.iID);
+			PostMessage(main_window, WM_USER + 1, 0, (LPARAM)"Pojazd nie istnieje.");
+			LeaveCriticalSection(&m_cs);
+			return;
 		}
+
+		PostMessage(main_window, WM_USER + 2, frame.iID, 0);  // Wyœlij zapytanie do g³ównego w¹tku
 	}
 	else if (frame.swap_request == 2)  // potwierdzenie zamiany
 	{
+		if (other_cars.find(frame.iID) == other_cars.end() || other_cars[frame.iID] == nullptr)
+		{
+			PostMessage(main_window, WM_USER + 1, 0, (LPARAM)"Pojazd nie istnieje.");
+			LeaveCriticalSection(&m_cs);
+			return;
+		}
+
+		if (my_car == nullptr)
+		{
+			PostMessage(main_window, WM_USER + 1, 0, (LPARAM)"B³¹d: Brak w³asnego pojazdu.");
+			LeaveCriticalSection(&m_cs);
+			return;
+		}
+
 		// Wymieñ pojazdy
 		MovableObject* temp = my_car;
 		my_car = other_cars[frame.iID];
 		other_cars[frame.iID] = temp;
 
-		MessageBox(main_window, "Pojazdy zosta³y zamienione.", "Zamiana pojazdów", MB_OK);
+		PostMessage(main_window, WM_USER + 1, 0, (LPARAM)"Pojazdy zosta³y zamienione.");
 	}
+
+	LeaveCriticalSection(&m_cs);
 }
 
 
@@ -152,13 +173,14 @@ DWORD WINAPI ReceiveThreadFun(void* ptr)
 
 		EnterCriticalSection(&m_cs);
 
-		if (frame.iID != my_car->iID)
+		if (frame.iID != my_car->iID)  // jeœli to nie mój w³asny obiekt
 		{
 			if ((other_cars.size() == 0) || (other_cars[frame.iID] == NULL))
 			{
 				MovableObject* ob = new MovableObject();
 				ob->iID = frame.iID;
 				other_cars[frame.iID] = ob;
+				fprintf(f, "Zarejestrowano nowy pojazd: ID = %d\n", frame.iID);
 			}
 			other_cars[frame.iID]->ChangeState(state);
 
@@ -172,8 +194,6 @@ DWORD WINAPI ReceiveThreadFun(void* ptr)
 	}
 	return 1;
 }
-
-
 // *****************************************************************
 // ****    Wszystko co trzeba zrobiæ podczas uruchamiania aplikacji
 // ****    poza grafik¹   
@@ -337,6 +357,22 @@ LRESULT CALLBACK WndProc(HWND main_window, UINT message_code, WPARAM wParam, LPA
 		SetTimer(main_window, 1, 10, NULL);
 
 		return 0;
+	}
+
+	case WM_USER + 1:  // Wyœwietl MessageBox
+	{
+		char* message = (char*)lParam;
+		MessageBox(main_window, message, "Zamiana pojazdów", MB_OK);
+		break;
+	}
+	case WM_USER + 2:  // Zapytanie o zamianê
+	{
+		int targetID = (int)wParam;
+		if (MessageBox(main_window, "Czy chcesz zamieniæ siê pojazdem?", "Zamiana pojazdów", MB_YESNO) == IDYES)
+		{
+			ConfirmSwap(targetID);
+		}
+		break;
 	}
 
 
