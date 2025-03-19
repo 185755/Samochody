@@ -1,5 +1,10 @@
 height_map env: number_of_rows = 235, number_of_columns = 231
-my_car->iID = 693
+my_car->iID = 961
 my_car->iID = 41
-Zarejestrowano nowy pojazd: ID = 722
+Zarejestrowano nowy pojazd: ID = 980
 Koniec interakcji
+ request -> iID = 961, iID_receiver = 980
+RequestSwap: Swap request successfully sent.
+HandleSwap: Otrzymano ramkê -> swap_request = 2, iID = 980, iID_receiver = 961
+HandleSwap: Otrzymano potwierdzenie zamiany od pojazdu 980
+HandleSwap: Zamiana zakoñczona -> my_car->iID = 980, other_cars[980]->iID = 961

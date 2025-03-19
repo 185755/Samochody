@@ -1,5 +1,11 @@
 height_map env: number_of_rows = 235, number_of_columns = 231
-my_car->iID = 722
+my_car->iID = 980
 my_car->iID = 41
-Zarejestrowano nowy pojazd: ID = 693
+Zarejestrowano nowy pojazd: ID = 961
 Koniec interakcji
+miany od pojazdu 961
+HandleSwap: Wysy³am WM_USER + 2 do g³ównego w¹tku -> iID = 961
+WndProc: Otrzymano wiadomoœæ WM_USER + 2. Target ID = 961
+ConfirmSwap: Wchodzê do funkcji. Target ID = 961
+ConfirmSwap: Przygotowano ramkê -> iID = 980, iID_receiver = 961, type = 3, swap_request = 2
+ConfirmSwap: Ramka zosta³a poprawnie wys³ana.

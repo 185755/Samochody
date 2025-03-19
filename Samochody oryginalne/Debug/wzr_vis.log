@@ -1,21 +1,29 @@
 ﻿cl : wiersz polecenia warning D9035: Opcja "Gm" jest przestarzała i będzie usunięta w przyszłych wydaniach
   main.cpp
 E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(19,11): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(239,39): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(241,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(476,50): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(539,63): warning C4305: "/=": obcięcie z "double" do "float"
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(546,61): warning C4305: "*=": obcięcie z "double" do "float"
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(572,37): warning C4305: "+=": obcięcie z "double" do "float"
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(577,37): warning C4305: "-=": obcięcie z "double" do "float"
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(598,23): warning C4305: "/=": obcięcie z "double" do "float"
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(606,23): warning C4305: "*=": obcięcie z "double" do "float"
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(622,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(623,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(624,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(628,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(629,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(630,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(636,6): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(704): warning C4715: "WndProc”: niewszystkie ścieżki kodu zwracają wartość
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(63,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(102,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(137,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(169,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(194,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(355,39): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(357,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(482,36): warning C4566: znak przedstawiony przez nazwę zawierającą znaki uniwersalne "\uFFFD" nie może być przedstawiony w bieżącej stronie kodowej (1250)
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(612,52): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(675,63): warning C4305: "/=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(682,61): warning C4305: "*=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(708,37): warning C4305: "+=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(713,37): warning C4305: "-=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(734,23): warning C4305: "/=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(742,23): warning C4305: "*=": obcięcie z "double" do "float"
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(489,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(502,8): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(758,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(759,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(760,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(764,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(765,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(766,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(772,6): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Portfolio\Samochody\Samochody oryginalne\main.cpp(840): warning C4715: "WndProc”: niewszystkie ścieżki kodu zwracają wartość
   wzr_vis.vcxproj -> E:\Portfolio\Samochody\Samochody oryginalne\Debug\wzr_vis.exe
